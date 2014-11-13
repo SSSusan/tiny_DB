@@ -7,7 +7,8 @@
 using namespace std;
 
 DB::DB()
-    :is_bind(false), db_data_file("Data/"), tables_count(0)
+    :is_bind(false), db_data_file("Data/"),
+     tables_count(0), db_name("")
 {
     // Do nothing
 }
@@ -18,8 +19,9 @@ DB::~DB()
 }
 
 void DB::bind( const string &_database_name )
-    :db_name(_database_name)
 {
+    db_name = _database_name;
+
     // Just activate the DB
     is_bind = true;
     db_data_file += _database_name;
@@ -39,13 +41,13 @@ void DB::bind( const string &_database_name )
         tables_name.push_back( theTable.table_name );
 
         size_t index1, index2;
-        for ( index1 = 0; index1 < colums_count; ++index1 )
+        for ( index1 = 0; index1 < theTable.colums_count; ++index1 )
         {
             string _colum_name;
             getline( s_db_data_infile, _colum_name );
             theTable.colums.push_back( _colum_name );
         }
-        for ( index2 = 0; index2  < index_count; ++index2 )
+        for ( index2 = 0; index2  < theTable.index_count; ++index2 )
         {
             string _index_name;
             getline( s_db_data_infile, _index_name );
@@ -90,8 +92,21 @@ const bool DB::save_db_data_file()
 
     s_db_data_outfile << tables_count << endl;
     vector<string>::iterator index;
-    for ( index = table_names.begin(); index != table_names.end(); ++index )
-        s_db_data_outfile << (*index) << endl;
+    for ( index = tables_name.begin(); index != tables_name.end(); ++index )
+    {
+        string _tables_name = (*index);
+        s_db_data_outfile << tables[_tables_name].table_name
+                          << tables[_tables_name].colums_count
+                          << tables[_tables_name].index_count
+                          << endl;
+
+        size_t index1, index2;
+        for ( index1 = 0; index1 < tables[_tables_name].colums_count; ++index1)
+            s_db_data_outfile << tables[_tables_name].colums[index1] << endl;
+
+        for ( index2 = 0; index2 < tables[_tables_name].index_count; ++index2)
+            s_db_data_outfile << tables[_tables_name].indexs[index2] << endl;
+    }
 
     s_db_data_outfile.close();
 

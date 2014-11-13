@@ -5,6 +5,8 @@ class Tables
 {
 public:
     Tables();
+private:
+
 };
 
 #endif // TABLES_H

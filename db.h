@@ -1,7 +1,8 @@
-    #ifndef DB_H
+#ifndef DB_H
 #define DB_H
 
 #include "table.h"
+#include "tables.h"
 #include <string>   // using std::string
 #include <vector>   // using std::vector
 #include <fstream>  // using std::ifstream, std::ofstream
@@ -15,6 +16,8 @@ public:
     DB();
     ~DB();
     void bind( const string & );
+    void select_table( const string & );
+
     const bool drop_table( const string & );
     const bool creat_table( const string & ,
                             const map<string, string> & );
@@ -30,6 +33,8 @@ private:
     unsigned int tables_count;      // init(0)
     vector<string> tables_name;
     map<string, Table> tables;
+
+    Tables table;
 
     const bool open_db_data_infile();
     const bool open_db_data_outfile();

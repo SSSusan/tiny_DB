@@ -5,11 +5,13 @@
 #include <fstream>  // using std::ifstream, std::ofstream
 #include <string>   // using std::string
 #include <vector>   // using std::vector
+//#include <list>     // using std::list
 
 using namespace std;
 
 class DBMS
 {
+    friend ostream & operator<<( ostream &os, const vector<string> &_vec );
 public:
     DBMS();
     ~DBMS();
@@ -18,6 +20,8 @@ public:
     const bool drop_database( const string &_database_name );
 
     const bool bind_database( const string &_database_name );
+
+    void show_db_all();
 
 private:
     ifstream s_dbms_data_infile;
