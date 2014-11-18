@@ -1,3 +1,0 @@
-name,type,price
-c++ primer,book,100
-pepsi,drink,2
