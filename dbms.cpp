@@ -31,7 +31,7 @@ bool DBMS::bind( const string &_table_name )
 
     table_name = _table_name;
     is_bind = true;
-    table.open();
+    table.init( _table_name );
 
     return true;
 }

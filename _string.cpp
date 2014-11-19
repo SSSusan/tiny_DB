@@ -13,18 +13,6 @@ _String::_String( const string &_s )
     str = _s;
 }
 
-const string::iterator & _String::indexof( const char &_c )
-{
-    string::iterator index;
-
-    for ( index = str.begin(); index != str.end(); ++index )
-        if ( (*index) == _c )
-            break;
-    ptr_c = index;
-
-    return ptr_c;
-}
-
 const vector<string> & _String::split ()
 {
     string::iterator index;

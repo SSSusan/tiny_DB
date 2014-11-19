@@ -15,7 +15,7 @@ class _String
 public:
     _String();
     _String( const string &_s );
-    const string::iterator & indexof( const char &_c ); // in str
+
     const vector<string> & split ();
 private:
     string str;
