@@ -33,7 +33,7 @@ public:
     /*  $begin DML */
     /*
      *  SELECT row FROM table_name
-     *  WHERE _column_name=_value
+     *  WHERE _column_name=_valave_data();ue
      */
     vector<string> select( const string  &_column_name,
                            const string &_value);
@@ -46,12 +46,12 @@ public:
                            const string &_value);
     /*
      *  UPDATE table_name SET _column_name=_value
-     *  WHERE _which_column=_which_row_name
+     *  WHERE _which_column_name=_which_column_value
      */
     void update( const string &_column_name,
                  const string &_value,
-                 const string &_which_column,
-                 const string &_which_column_name );
+                 const string &_which_column_name,
+                 const string &_which_column_value );
     /*
      *  INSERT INTO table_name
      *  VALUES(val1, val2, val3, ...)
@@ -68,7 +68,7 @@ public:
      *  DELETE FROM table_name WHERE _column_name=_value
      */
     void delete_row( const string &_column_name,
-                      const string &_value);
+                     const string &_value );
     /* $end DML */
 private:
     bool is_bind;       // init(false)

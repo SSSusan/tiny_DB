@@ -41,3 +41,10 @@ void DBMS::unbind()
     is_bind = false;
     table_name = "NULL";
 }
+
+/* $begin DDL */
+void DBMS::alter_table_add_column( const string &_column_name ){
+
+}
+
+/* $end DDL */
