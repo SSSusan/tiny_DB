@@ -23,6 +23,10 @@ public:
 
     /* $begin DDL */
     /*
+     *  CREATE TABLE table_name=value
+     */
+    bool create_table( const string &_table_name );
+    /*
      *  AlTER TABLE table_name
      *  ADD column_name [datatype]
      */
@@ -35,15 +39,25 @@ public:
      *  SELECT row FROM table_name
      *  WHERE _column_name=_valave_data();ue
      */
-    vector<string> select( const string  &_column_name,
-                           const string &_value);
+    vector<vector<string> > & select( const string &_column_name,
+                                      const string &_value);
+
+    /*
+     *  SELECT __column_name FROM table_name
+     *  WHERE _column_name=_value
+     */
+    vector<vector<string> > & select ( const string &__column_name,
+                                       const string &_column_name,
+                                       const string &_value );
+
     /*
      *  SELECT _columns_name FROM table_name
      *  WHERE _column_name=_value
      */
-    vector<string> select( const vector<string> &_columns_name,
-                           const string &_column_name,
-                           const string &_value);
+    //vector<vector<string> > & select( const vector<string> &_columns_name,
+    //                                  const string &_column_name,
+    //                                  const string &_value);
+
     /*
      *  UPDATE table_name SET _column_name=_value
      *  WHERE _which_column_name=_which_column_value

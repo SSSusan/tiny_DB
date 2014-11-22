@@ -24,7 +24,7 @@ Table::Table()
 Table::Table( const string &_name )
     :name(_name), data_file(_name), key("NULL"), index("NULL")
 {
-    open ();
+    open();
 }
 
 void Table::init( const string &_name )
@@ -33,6 +33,22 @@ void Table::init( const string &_name )
     data_file = _name;
 
     open();
+}
+
+/*
+ *  Simple implement table create
+ */
+bool Table::create( const string &_name )
+{
+    // IF the table exit
+    // return false
+
+    name = _name;
+    data_file = _name;
+
+    save_data();
+
+    return true;
 }
 
 void Table::open()
@@ -48,6 +64,8 @@ void Table::add_column( const string &_column_name )
 {
     columns.push_back( _column_name );
     columns_count = columns.size();
+
+    save_data();
 }
 /* $end DDL */
 
@@ -159,6 +177,8 @@ void Table::update( const string &_column_name,
             cout << e << endl;
         }
     }
+
+    save_data();
 }
 
 void Table::insert( const vector<string> &_values )
@@ -166,6 +186,8 @@ void Table::insert( const vector<string> &_values )
     Row _row( _values );
     rows.push_back( _row );
     rows_count = rows.size();
+
+    save_data();
 }
 
 void Table::delete_row( const string &_column_name,
@@ -198,6 +220,15 @@ void Table::read_data()
         cout << columns[i] << endl;
     /////////////////////////////////////////
 
+    _s.clear();
+    while (getline( infile, _s))
+    {
+        _String __ss( _s);
+        Row _row( __ss.split() );
+        rows.push_back( _row );
+    }
+    rows_count = rows.size();
+
     infile.close();
 }
 
@@ -215,12 +246,13 @@ void Table::save_data()
     const char *_data_file = data_file.c_str();
     outfile.open( _data_file );
     if ( outfile.fail() )
-        throw "Data save fail.";    // Fatal error!
+        cout << "Data save fail.";    // Fatal error!
 
     if ( columns_count ) {
         vector<string>::iterator i;
         string _columns;
-        for ( i = columns.begin(); i != (columns.end()-1); ++i ) {
+        for ( i = columns.begin(); i != columns.end(); ++i )
+        {
             _columns += (*i);
             _columns += ',';
         }

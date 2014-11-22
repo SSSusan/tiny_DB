@@ -22,7 +22,7 @@ public:
     Table();
     Table( const string &_name );
     void init( const string &_name );
-    void open();
+    bool create( const string &_name );
 
     /*
      *  Provide APIs for DBMS to get table's infomation
@@ -43,7 +43,7 @@ public:
     void add_column( const string &_column_name );
     /* $end DDL */
     /* $start DML */
-    vector<vector<string> > & select( const string &_colume_name,
+    vector<vector<string> > & select( const string &_column_name,
                                       const string &_value );
     vector<vector<string> > & select( const string &__column_name,
                                       const string &_column_name,
@@ -89,6 +89,7 @@ private:
     //vector<string> result_row;
     vector<vector<string> > result_rows;
 
+    void open();
     void read_data();
     void save_data();
 };
