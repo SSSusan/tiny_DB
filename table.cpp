@@ -63,7 +63,15 @@ void Table::open()
 void Table::add_column( const string &_column_name )
 {
     columns.push_back( _column_name );
-    columns_count = columns.size();
+    columns_count = columns.size(); 
+
+    // All row data assigned NULL
+    if ( rows_count != 0 )
+    {
+        //size_t p = columns_count - 1;
+        for ( size_t i = 0; i < rows_count; ++i)
+            rows[i].values.push_back("NULL");
+    }
 
     save_data();
 }
@@ -100,7 +108,7 @@ Table::select ( const string &_column_name,
 vector<vector<string> > &
 Table::select( const string &__column_name,
                const string &_column_name,
-               const string &_value)
+               const string &_value )
 {
     // Clear stack
     result_rows.clear();
