@@ -17,12 +17,14 @@ Row::Row(const vector<string> &_values )
 }
 
 Table::Table()
-    :name("NULL"), data_file("NULL"), key("NULL"), index("NULL")
+    :name("NULL"), data_file("NULL"), key("NULL"),
+      index("NULL"), rows_count(0), columns_count(0)
 {
 }
 
 Table::Table( const string &_name )
-    :name(_name), data_file(_name), key("NULL"), index("NULL")
+    :name(_name), data_file(_name), key("NULL"),
+      index("NULL"), rows_count(0), columns_count(0)
 {
     open();
 }
@@ -58,6 +60,19 @@ void Table::open()
     } catch (const char *e) {
         cout << e << endl;
     }
+}
+
+vector<string> & Table::getKeyValues()
+{
+    key_values.clear();
+
+    vector<Row>::iterator index;
+    for ( index = rows.begin(); index != rows.end(); ++index )
+    {
+        key_values.push_back( (*index).values[0] );
+    }
+
+    return key_values;
 }
 
 /* $begin DDL */
@@ -227,15 +242,19 @@ void Table::read_data()
         throw "Data read fail.";     // Fatal error!
     //////////////////////////////////////////
     string _s;
-    getline( infile, _s );
-    _String __s( _s );
-    columns = __s.split();
-    columns_count = columns.size();
+    if ( getline( infile, _s ) )
+    {
 
-    // Init key
-    key = columns[0];
+        _String __s( _s );
+        columns = __s.split();
+        columns_count = columns.size();
 
-    _s.clear();
+        // Init key
+        key = columns[0];
+
+        _s.clear();
+    }
+
     while (getline( infile, _s))
     {
         _String __ss( _s);
@@ -262,7 +281,7 @@ void Table::save_data()
     outfile.open( _data_file );
     //////////////////////////////////////////////////
     if ( outfile.fail() )
-        throw << "Data save fail.";    // Fatal error!
+        throw "Data save fail.";    // Fatal error!
     //////////////////////////////////////////////////
     if ( columns_count ) {
         vector<string>::iterator i;

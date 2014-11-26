@@ -35,6 +35,7 @@ public:
     const size_t & getColumnsCount() const { return columns_count; }
     const size_t & getRowsCount() const { return rows_count; }
 
+    vector<string> & getKeyValues();
     /*
      * Just realize the function, no ERROR check
      */
@@ -63,7 +64,7 @@ private:
     string key;         // init("NULL"), default("columns[0]")
     string index;       // init("NULL")
 
-
+    vector<string> key_values;
 
     /*
      * Core data orgnization method

@@ -73,7 +73,7 @@ vector<vector<string> > & DBMS::select( const string &_column_name,
                                         const string &_value )
 {
     if ( !is_bind )
-        throw "No data bind.";
+        throw "No table bind.";
 
     size_t table_rows_count = table.getRowsCount();
     if ( table_rows_count == 0 )
@@ -114,7 +114,7 @@ void DBMS::update( const string &_column_name,
     vector<string>::iterator p;
 
     // There is name column type
-    p  = find( _columns.begin(), _columns.end(), _columns_name );
+    p  = find( _columns.begin(), _columns.end(), _column_name );
     if ( p == _columns.end() )
         throw "The column name do not exist. Cannot update.";
 
@@ -131,10 +131,10 @@ void DBMS::update( const string &_column_name,
     // Check whether can update key value
     if ( _column_name == table.getKey() )
     {
-        vector<vector<string> > key_values;
-        key_values = table.select( table.getKey() );
+        vector<string> key_values;
+        key_values = table.getKeyValues();
 
-        p = find ( key_values.begin(), _columns.end, _column_name );
+        p = find ( key_values.begin(), key_values.end(), _column_name );
         if ( p != key_values.end() )
             throw "Cannot update the key's value.";
     }
