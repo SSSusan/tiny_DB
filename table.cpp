@@ -92,9 +92,7 @@ Table::select ( const string &_column_name,
             p = i;
             break;
         }
-    //////////////////////////////////////////
-    if ( p == -1)
-        throw "column_name no found.";      // fatal error
+
     vector<Row>::iterator index;
     for ( index = rows.begin(); index != rows.end(); ++index )
     {
@@ -121,12 +119,7 @@ Table::select( const string &__column_name,
         if ( columns[i] == __column_name )
             po = (int)i;
     }
-    ///////////////////////////////////////////
-    // IF type no found, thow fatal error
-    // Of cource if shouldn't happen here, just debug
-    if ( po == -1 || pi == -1 )
-        throw "column_name no found.";   // fatal error
-    ///////////////////////////////////////////
+
     vector<Row>::iterator index;
     for ( index = rows.begin(); index != rows.end(); ++index )
     {
@@ -167,13 +160,6 @@ void Table::update( const string &_column_name,
         if ( columns[i] == _which_column_name )
             pi = i;
     }
-    ///////////////////////////////////////////////
-    if ( pi == -1 || po == -1 )
-        throw "column_name no found.";
-    ///////////////////////////////////////////////
-
-    if ( columns[po] == key )
-        throw "No way to modify key.";
 
     vector<Row>::iterator index;
     for ( index = rows.begin(); index != rows.end(); ++index )
@@ -202,6 +188,29 @@ void Table::delete_row( const string &_column_name,
                         const string &_value )
 {
     // Must understand vector more, especially copy constructor
+    // Copy to a new vector - may cost many time
+    vector<Row> _rows;
+    size_t pi;
+    for ( size_t p = 0; p < columns_count; ++p )
+        if ( columns[p] == _column_name )
+        {
+            pi = p;
+            break;
+        }
+
+    vector<Row>::iterator index;
+    for ( index = rows.begin(); index != rows.end(); ++index )
+    {
+        if ( (*index).values[pi] == _value )
+            continue;
+        else
+            _rows.push_back( (*index) );
+    }
+
+    rows = _rows;
+    rows_count = rows.size();
+
+    save_data();
 }
 
 /* $end DML*/
@@ -212,9 +221,10 @@ void Table::read_data()
 
     const char *_data_file = data_file.c_str();
     infile.open( _data_file );
+    //////////////////////////////////////////
     if ( infile.fail() )
         throw "Data read fail.";     // Fatal error!
-
+    //////////////////////////////////////////
     string _s;
     getline( infile, _s );
     _String __s( _s );
@@ -223,10 +233,6 @@ void Table::read_data()
 
     // Init key
     key = columns[0];
-    /////////////////////////////////////////
-    for ( size_t i = 0; i < columns_count; ++i)
-        cout << columns[i] << endl;
-    /////////////////////////////////////////
 
     _s.clear();
     while (getline( infile, _s))
@@ -254,7 +260,7 @@ void Table::save_data()
     const char *_data_file = data_file.c_str();
     outfile.open( _data_file );
     if ( outfile.fail() )
-        cout << "Data save fail.";    // Fatal error!
+        throw << "Data save fail.";    // Fatal error!
 
     if ( columns_count ) {
         vector<string>::iterator i;

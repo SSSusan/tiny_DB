@@ -71,7 +71,7 @@ vector<vector<string> > & DBMS::select( const string &_column_name,
 {
     size_t table_rows_count = table.getRowsCount();
     if ( table_rows_count == 0 )
-        throw "No data type";
+        throw "No data in this table.";
 
     return table.select( _column_name, _value );
 }
@@ -82,13 +82,13 @@ vector<vector<string> > & DBMS::select( const string &__column_name,
 {
     size_t table_rows_count = table.getRowsCount();
     if ( table_rows_count == 0 )
-        throw "No type data";
+        throw "No data in this table.";
 
     vector<string> columns_name( table.getColumns() );
     vector<string>::const_iterator ptr;
     ptr = find( columns_name.begin(), columns_name.end(), __column_name );
     if ( ptr == columns_name.end() )
-        throw "No columns name";        // Illegal visit
+        throw "The column name do not exist.";        // Illegal visit
 
     return table.select( __column_name, _column_name, _value );
 }
@@ -97,8 +97,36 @@ void DBMS::update( const string &_column_name,
                    const string &_value,
                    const string &_which_column_name,
                    const string &_which_column_value )
-{
-    // Finish later!!!!!!!!!!
+{    
+    vector<string> _columns = table.getColumns();
+    vector<string>::iterator p;
+
+    // There is name column type
+    p  = find( _columns.begin(), _columns.end(), _columns_name );
+    if ( p == _columns.end() )
+        throw "The column name do not exist. Cannot update.";
+
+    // Cannot not locate
+    p = find( _columns.begin(), _columns.end(), _which_column_name );
+    if ( p == _columns.end() )
+        throw "The column name do not exist. Cannot locate.";
+
+    // There is no data
+    if ( table.getRowsCount() == 0 )
+        throw "No data in this table";
+
+    // IF update key - value
+    // Check whether can update key value
+    if ( _column_name == table.getKey() )
+    {
+        vector<vector<string> > key_values;
+        key_values = table.select( _columns[0] );
+
+        p = find ( key_values.begin(), _columns.end, _column_name );
+        if ( p != key_values.end() )
+            throw "Cannot update the key's value.";
+    }
+
     table.update( _column_name, _value,
                   _which_column_name, _which_column_value );
 }
@@ -107,8 +135,8 @@ void DBMS::insert( const vector<string> &_values )
 {
     size_t columns_count = table.getColumnsCount();
 
-    if ( _values.size() == columns_count )
-        throw "invalid insert overflow";    // Fatal error
+    if ( _values.size() != columns_count )
+        throw "Invalid insert. Values overflow.";    // Fatal error
 
     table.insert( _values );
 }
@@ -117,13 +145,13 @@ void DBMS::insert( const vector<string> &_columns,
                    const vector<string> &_values )
 {
     if ( _columns.size() != _values.size() )
-        throw "invalid insert";
+        throw "Value size do not match the column size";
 
     size_t columns_count = table.getColumnsCount();
     vector<string> columns( table.getColumns() );
 
     if ( _values.size() > columns_count )
-        throw "invalid insert overflow";
+        throw "Invalid insert. Values overflow.";
 
     vector<string> __values;
     for ( size_t p = 0; p < columns_count; ++p )
@@ -133,17 +161,15 @@ void DBMS::insert( const vector<string> &_columns,
         {
             if ( _columns[pi] == columns[p] )
             {
-                __values.push_back( _columns[pi] );
+                __values.push_back( _values[pi] );
                 break;
             }
         }
         if ( pi == _columns.size() )
             __values.push_back( "NULL" );
     }
-    ///////////////////////////////////
     if ( __values.size() != columns_count )
-        throw "insert error";
-    ///////////////////////////////////
+        throw "Insert error. Try again.";
 
     table.insert( __values );
 }
@@ -153,13 +179,13 @@ void DBMS::delete_row( const string &_column_name,
 {
     size_t table_rows_count = table.getRowsCount();
     if ( table_rows_count == 0 )
-        throw "No type data";
+        throw "No data in this table.";
 
     vector<string> columns_name( table.getColumns() );
     vector<string>::const_iterator ptr;
     ptr = find( columns_name.begin(), columns_name.end(), _column_name );
     if ( ptr == columns_name.end() )
-        throw "No column name";
+        throw "No this data record.";
 
     table.delete_row( _column_name, _value );
 }

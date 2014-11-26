@@ -3,7 +3,6 @@
 
 #include <string>   // using std::string
 #include <vector>   // using std::vector
-//#include <list>     // using std::list
 
 using namespace std;
 
