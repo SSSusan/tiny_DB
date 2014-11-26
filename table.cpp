@@ -59,6 +59,7 @@ void Table::open()
         cout << e << endl;
     }
 }
+
 /* $begin DDL */
 void Table::add_column( const string &_column_name )
 {

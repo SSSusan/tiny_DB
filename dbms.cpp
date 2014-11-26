@@ -132,7 +132,7 @@ void DBMS::update( const string &_column_name,
     if ( _column_name == table.getKey() )
     {
         vector<vector<string> > key_values;
-        key_values = table.select( _columns[0] );
+        key_values = table.select( table.getKey() );
 
         p = find ( key_values.begin(), _columns.end, _column_name );
         if ( p != key_values.end() )

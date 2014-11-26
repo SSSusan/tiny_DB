@@ -63,6 +63,8 @@ private:
     string key;         // init("NULL"), default("columns[0]")
     string index;       // init("NULL")
 
+
+
     /*
      * Core data orgnization method
      *  - 2D table
