@@ -259,9 +259,10 @@ void Table::save_data()
 
     const char *_data_file = data_file.c_str();
     outfile.open( _data_file );
+    //////////////////////////////////////////////////
     if ( outfile.fail() )
         throw << "Data save fail.";    // Fatal error!
-
+    //////////////////////////////////////////////////
     if ( columns_count ) {
         vector<string>::iterator i;
         string _columns;

@@ -63,12 +63,18 @@ bool DBMS::create_table( const string &_table_name )
 
 void DBMS::alter_table_add_column( const string &_column_name )
 {
+    if ( !is_bind )
+        throw "No table bind.";
+
     table.add_column( _column_name );
 }
 
 vector<vector<string> > & DBMS::select( const string &_column_name,
                                         const string &_value )
 {
+    if ( !is_bind )
+        throw "No data bind.";
+
     size_t table_rows_count = table.getRowsCount();
     if ( table_rows_count == 0 )
         throw "No data in this table.";
@@ -80,6 +86,9 @@ vector<vector<string> > & DBMS::select( const string &__column_name,
                                         const string &_column_name,
                                         const string &_value )
 {
+    if ( !is_bind )
+        throw "No table bind.";
+
     size_t table_rows_count = table.getRowsCount();
     if ( table_rows_count == 0 )
         throw "No data in this table.";
@@ -98,6 +107,9 @@ void DBMS::update( const string &_column_name,
                    const string &_which_column_name,
                    const string &_which_column_value )
 {    
+    if ( !is_bind )
+        throw "No table bind.";
+
     vector<string> _columns = table.getColumns();
     vector<string>::iterator p;
 
@@ -133,6 +145,9 @@ void DBMS::update( const string &_column_name,
 
 void DBMS::insert( const vector<string> &_values )
 {
+    if ( !is_bind )
+        throw "No table bind";
+
     size_t columns_count = table.getColumnsCount();
 
     if ( _values.size() != columns_count )
@@ -144,6 +159,9 @@ void DBMS::insert( const vector<string> &_values )
 void DBMS::insert( const vector<string> &_columns,
                    const vector<string> &_values )
 {
+    if ( !is_bind )
+        throw "No table bind.";
+
     if ( _columns.size() != _values.size() )
         throw "Value size do not match the column size";
 
@@ -177,6 +195,9 @@ void DBMS::insert( const vector<string> &_columns,
 void DBMS::delete_row( const string &_column_name,
                        const string &_value )
 {
+    if ( !is_bind )
+        throw "No table bind.";
+
     size_t table_rows_count = table.getRowsCount();
     if ( table_rows_count == 0 )
         throw "No data in this table.";
