@@ -1,3 +1,5 @@
+#define DEMO_CPP
+#ifndef DEMO_CPP
 /*
  * Test DBMS
  */
@@ -20,3 +22,4 @@ int main()
 
     return 0;
 }
+#endif
