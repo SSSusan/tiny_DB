@@ -53,6 +53,8 @@ bool DBMS::create_table( const string &_table_name )
     if ( table.create( _table_name ) )
     {
         table.init( _table_name );
+
+        table_name = _table_name ;
         is_bind = true;
 
         return true;

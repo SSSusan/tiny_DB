@@ -11,11 +11,12 @@ int main()
 {
     DBMS dbms;
 
-    dbms.create_table( "Sales ");
-    cout << dbms.get_bind_state() << endl;
+    //dbms.create_table( "Sales ");
+    //cout << dbms.get_bind_state() << endl;
+    //dbms.alter_table_add_column( "Name");
 
-    dbms.alter_table_add_column( "Name");
-
+    dbms.create_table( "test" );
+    cout << dbms.get_table_name() << endl;
 
     return 0;
 }
