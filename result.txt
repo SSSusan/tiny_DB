@@ -1,0 +1,6 @@
+Amount,100
+e	t1	100	10	10%	
+z	t9	100	100	89%	
+Name,Amount,100
+e	
+z	

@@ -1,4 +1,4 @@
-//#define TEST_CPP
+#define TEST_CPP
 #ifndef TEST_CPP
 
 #include <iostream>
