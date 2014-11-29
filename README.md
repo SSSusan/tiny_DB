@@ -54,31 +54,31 @@
 ![model](./Captures/SMS_Model.png)
 
 ##About the client program
-This is the first input file - figure1.txt which user defined:
+- This is the first input file - figure1.txt which user defined:
 ![Captures/figure1_1](./Captures/figure1_1.png)
-And the outfile - figure2.txt has existed some data - actually its the DB's core data file:
+- And the outfile - figure2.txt has existed some data - actually its the DB's core data file:
 ![figure2_1](./Captures/figure2_1.png)
-In console, we choose 1 - Insert data from file:
+- In console, we choose 1 - Insert data from file:
 ![function1](./Captures/function1.png)
-After above operate, we get the result infomation. And, figure2.txt updated:
+- After above operate, we get the result infomation. And, figure2.txt updated:
 ![figure2_2](./Captures/figure2_2.png)
-In console, we choose 2 - Insert data via console, and choose figure1.txt to save the data:
+- In console, we choose 2 - Insert data via console, and choose figure1.txt to save the data:
 ![function2](./Captures/function2.png)
-After above operate, we get the result infomation in cosole, and, figure1.txt updated:
+- After above operate, we get the result infomation in cosole, and, figure1.txt updated:
 ![figure1_3](./Captures/figure1_3.png)
-In console, we choose 3 - Query via console and the console shows the result:
+- In console, we choose 3 - Query via console and the console shows the result:
 ![function3](./Captures/function3.png)
-In console, we choose query via file input:
+- In console, we choose query via file input:
 ![function4](./Captures/function4.png)
-Input file - query.txt:
+- Input file - query.txt:
 ![query](./Captures/query.png)
-Get the result in result.txt:
+- Get the result in result.txt:
 ![result](./Captures/result.png)
-User can edit data in excel , then save into `.csv` format:
+- User can edit data in excel , then save into `.csv` format:
 ![csv](./Captures/csv11.png)
-In console, we choose 1 - Insert data from file:
+- In console, we choose 1 - Insert data from file:
 ![csv_insert](./Captures/csv_insert.png)
-Then, the DB data file updated:
+- Then, the DB data file updated:
 ![csv_figure2](./Captures/csv_figure2.png)
 
 ##Main class in the Tiny-DB
