@@ -1,5 +1,5 @@
 #Sales Manager System
----
+
 2014-11-28
 
 ##Content
@@ -12,8 +12,6 @@
 - About the client program
 - Main class in the Tiny_DB
 - Member division
-
----
 
 ##Features
 ####Basic
